@@ -22,9 +22,14 @@ io.on("connection", (socket) => {
     console.log(msg);
     let targetId = msg.targetId;
     if (clients[targetId]) clients[targetId].emit("message", msg);
-    console.log("sifat: "+clients);
+    
   });
 });
+
+app.route('/check').get((req,res)=>{
+    return  res.json("your app running");
+})
+
 server.listen(port, "0.0.0.0", () => {
     console.log("server started");
   });
