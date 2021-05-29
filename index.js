@@ -15,9 +15,18 @@ io.on("connection",(socket) => {
 
     console.log("conneted");
     console.log(socket.id,"hass joined");
-    socket.on("/test",(msg)=>{
-        console.log(msg)
-    })
+
+    socket.on("signin", (id) => {
+        console.log(id);
+        clients[id] = socket;
+        console.log(clients);
+      });
+      
+      socket.on("message", (msg) => {
+        console.log(msg);
+        let targetId = msg.targetId;
+        if (clients[targetId]) clients[targetId].emit("message", msg);
+      });
 
 })
 
